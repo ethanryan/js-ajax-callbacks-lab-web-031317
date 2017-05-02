@@ -1,3 +1,5 @@
+<!-- got this from a classmate: -->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,6 +21,41 @@
     </style>
   </head>
   <body>
+
+  <label><b>Enter Username:</b></label>
+  <input type="text" name="searchTerms" id="searchTerms">
+  <a href="#" id="searchLinkID">Search Repositories</a>
+
+<br><br>
+<label>Your input: </label>
+<p><span id="display"></span></p>
+<br>
+
+    <script id="results-template" type="text/x-handlebars-template">
+       {{#each items }}
+       <h2><a href="{{ html_url }}">{{ name }}</a></h2>
+       <p><a href="#" data-repository="{{ name }}" data-owner="{{ owner.login }}" onclick="showCommits(this)">Show Commits</a></p>
+       <p>{{ description }}</p>
+       <div>{{> userDetails owner }}</div>
+       <hr>
+       {{/each}}
+     </script>
+     <script id="commits-template" type="text/x-handlebars-template">
+       <ul>
+       {{#each this}}
+         <li>
+           <h3>{{ sha }}</h3>
+           <p> {{ commit.message }} </p>
+           <div> {{> userDetails author }} </div>
+         </li>
+       {{/each }}
+       </ul>
+     </script>
+     <script type="text/x-handlebars-template" id="user-details-partial">
+       <h4><a href="{{ url }}">{{ login }}</a></h4>
+       <img width="32px" height="32px" src="{{ avatar_url }}">
+     </script>
+
     <main id="main">
       <div id="errors"></div>
     </main>
